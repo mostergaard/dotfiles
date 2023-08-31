@@ -3,6 +3,9 @@
     "tap": {
       "homebrew/cask": {
         "revision": "c274789b81483756830578307505b2b5664410c7"
+      },
+      "microsoft/git": {
+        "revision": "67d1007b45079301cb319e42b04af5a8490d01e8"
       }
     },
     "brew": {
@@ -56,6 +59,12 @@
         "version": "1.81.1",
         "options": {
           "full_name": "visual-studio-code"
+        }
+      },
+      "git-credential-manager": {
+        "version": "2.3.2",
+        "options": {
+          "full_name": "git-credential-manager"
         }
       }
     }

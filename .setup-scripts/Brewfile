@@ -1,5 +1,7 @@
 tap 'homebrew/cask'
+tap 'microsoft/git'
 
 brew 'git'	
 
 cask 'visual-studio-code'
+cask 'git-credential-manager'
