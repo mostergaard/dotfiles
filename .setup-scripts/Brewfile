@@ -1,7 +1,13 @@
 tap 'homebrew/cask'
 tap 'microsoft/git'
 
-brew 'git'	
+brew 'git'
+brew 'node'
+brew 'nvm'
+brew 'volta'
+brew 'zsh'
+brew 'zsh-completions'
 
 cask 'visual-studio-code'
 cask 'git-credential-manager'
+cask 'iterm2'
