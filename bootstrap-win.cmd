@@ -14,7 +14,6 @@ echo.
 if not exist "%PROGRAMFILES%\Git\bin\bash.exe" (
     echo Could not find Git and Git Bash. Exiting.
     exit /b 1
-	rem TODO: We _could_ at this point try to install Git instead
 	rem TODO: In some cases, we've seen that Git was installed not in %PROGRAMFILES%
 )
 
