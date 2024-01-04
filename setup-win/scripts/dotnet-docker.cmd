@@ -1,0 +1,1 @@
+@docker run --rm -it -v C:/Code:/code -w /code --network="host" mcr.microsoft.com/dotnet/core/sdk:3.1

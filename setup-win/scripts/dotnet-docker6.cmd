@@ -1,0 +1,1 @@
+@docker run --rm -it -v %cd%:/app -w /app mcr.microsoft.com/dotnet/sdk:6.0-focal %*

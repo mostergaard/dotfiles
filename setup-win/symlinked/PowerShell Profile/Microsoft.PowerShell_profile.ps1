@@ -16,7 +16,7 @@ Run-Step "Posh-Git" {
 }
 
 Run-Step "on-my-posh" {
-	oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\operator.omp.json" | Invoke-Expression	
+	oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\jandedobbeleer.omp.json" | Invoke-Expression	
 }
 
 Run-Step "ZLocation" {
@@ -36,4 +36,3 @@ Run-Step "Kubectl autocompletion" {
 	Import-Module -Name PSKubectlCompletion
 	Register-KubectlCompletion
 }
-

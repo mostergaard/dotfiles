@@ -12,8 +12,8 @@ echo.
 echo -- Making sure Git Bash is installed...
 echo. 
 if not exist "%PROGRAMFILES%\Git\bin\bash.exe" (
-    echo Could not find Git and Git Bash. Exiting.
-    exit /b 1
+	echo Could not find Git and Git Bash. Exiting.
+	exit /b 1
 	rem TODO: In some cases, we've seen that Git was installed not in %PROGRAMFILES%
 )
 

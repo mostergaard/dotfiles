@@ -15,6 +15,12 @@ winget install --id Microsoft.WindowsTerminal
 echo Installing Volta
 winget install --id Volta.Volta
 
+ps_version=$( pwsh --version )
+if [[ $ps_version == *"7.3.9"* ]]; then
+	echo Uninstalling old PowerShell version because the install system is different
+	winget uninstall --id Microsoft.PowerShell --version 7.3.9
+fi
+
 echo Installing PowerShell Core
 winget install --id Microsoft.PowerShell
 
