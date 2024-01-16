@@ -3,6 +3,7 @@ tap 'microsoft/git'
 
 brew 'git'
 brew 'volta'
+brew 'node'
 brew 'zsh'
 brew 'zsh-completions'
 brew 'kubectl'
