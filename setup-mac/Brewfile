@@ -2,8 +2,6 @@ tap 'homebrew/cask'
 tap 'microsoft/git'
 
 brew 'git'
-brew 'node'
-brew 'nvm'
 brew 'volta'
 brew 'zsh'
 brew 'zsh-completions'
