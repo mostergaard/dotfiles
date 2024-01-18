@@ -18,6 +18,12 @@ function setup_dotnet {
 
 }
 
+function config_git {
+  echo "Setting up Git username and profile"
+  git config --global user.name "Morten Østergaard"
+  git config --global user.email
+}
+
 function config_k8s {
   kubeconfig_folder="$HOME/.kube"
   kubeconfig_file="$kubeconfig_folder/config"
@@ -79,6 +85,7 @@ if [[ "$system_type" = "Darwin" ]]; then
   setup_brew
   setup_oh_my_zsh
   setup_dotnet
+  config_git
   config_k8s
   config_npm_and_nuget
 fi
