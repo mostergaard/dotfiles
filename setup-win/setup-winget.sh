@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo Installing DotNet SDK
-winget install Microsoft.DotNet.SDK.7
+echo Installing DotNet SDK version 8
+winget install Microsoft.DotNet.SDK.8
 
 echo Installing Visual Studio 2022 Professional
 winget install --id Microsoft.VisualStudio.2022.Professional --override "--quiet --passive --config c:\code\dotfiles\setup-win\vs2022prof.vsconfig"
@@ -32,3 +32,6 @@ winget install --id ScooterSoftware.BeyondCompare4
 
 echo Installing Oh My Posh
 winget install JanDeDobbeleer.OhMyPosh
+
+echo Installing PowerToys
+winget install Microsoft.PowerToys
