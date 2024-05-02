@@ -7,6 +7,7 @@ brew 'node'
 brew 'zsh'
 brew 'zsh-completions'
 brew 'kubectl'
+brew 'java'
 
 cask 'visual-studio-code'
 cask 'git-credential-manager'
