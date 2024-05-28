@@ -13,7 +13,7 @@ function setup_oh_my_zsh {
 
 function setup_dotnet {
 
-  # Detect it Dotnet core is installed and if not, output a link to install from
+  # TODO: Detect it Dotnet core is installed and if not, output a link to install from
   echo "Installing .NET Core"
 
 }
@@ -21,7 +21,7 @@ function setup_dotnet {
 function config_git {
   echo "Setting up Git username and profile"
   git config --global user.name "Morten Østergaard"
-  git config --global user.email
+  git config --global user.email moni@siteimprove.com
 }
 
 function config_jdk {
@@ -85,6 +85,21 @@ function config_npm_and_nuget {
   volta install yarn
 }
 
+function config_bc {
+  echo "Configuring Beyond Compare"
+  bc4key_folder="$HOME/Library/Application Support/Beyond Compare"
+  bc4key_file="$bc4key_folder/BC4Key.txt"
+  if [ ! -f "$bc4key_file" ]; then
+    echo "===> Copy Beyond Compare license key into clipboard and press <enter> to contiue. Hint, the whole key is in my password app!"
+    read
+    bc4key=$(pbpaste)
+    if [ ! -d "$bc4key_folder" ]; then
+      mkdir -p "$bc4key_folder";
+    fi	
+    echo "$bc4key" >> "$bc4key_file"
+  fi
+}
+
 system_type=$(uname -s)
 if [[ "$system_type" = "Darwin" ]]; then
   setup_brew
@@ -94,4 +109,5 @@ if [[ "$system_type" = "Darwin" ]]; then
   config_jdk
   config_k8s
   config_npm_and_nuget
+  config_bc
 fi
