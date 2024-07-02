@@ -81,8 +81,14 @@ function config_npm_and_nuget {
   echo "Making sure LTS version of node and npm is installed"
   volta install node
 
+  echo "Installing npm as a global tool"
+  volta install npm
+
   echo "Installing yarn as a global tool"
   volta install yarn
+
+  echo "Installing pnpm as a global tool"
+  volta install pnpm
 }
 
 function config_bc {
