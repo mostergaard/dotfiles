@@ -9,6 +9,7 @@ brew 'zsh-completions'
 brew 'kubectl'
 brew 'java'
 brew 'tmux'
+brew 'gh'
 
 cask 'visual-studio-code'
 cask 'git-credential-manager'
