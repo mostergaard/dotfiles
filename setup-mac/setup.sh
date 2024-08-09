@@ -18,6 +18,12 @@ function setup_dotnet {
 
 }
 
+function setup_xcode {
+  # Install Xcode through the Mac App Store - using the "mas" CLI installed throw Brew. The xcode app has ID 497799835
+  echo "Installing Xcode from App store"
+  mas install 497799835
+}
+
 function config_git {
   echo "Setting up Git username and profile"
   git config --global user.name "Morten Østergaard"
@@ -111,6 +117,7 @@ if [[ "$system_type" = "Darwin" ]]; then
   setup_brew
   setup_oh_my_zsh
   setup_dotnet
+  setup_xcode
   config_git
   config_jdk
   config_k8s

@@ -9,7 +9,8 @@ brew 'zsh-completions'
 brew 'kubectl'
 brew 'java'
 brew 'tmux'
-brew 'gh'
+brew 'gh'  # GitHub CLI
+brew 'mas' # Mac App Store CLI
 
 cask 'visual-studio-code'
 cask 'git-credential-manager'
