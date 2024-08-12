@@ -44,6 +44,10 @@ if [[ ! $PATH == *$scripts_folder* ]]; then
 	pwsh -NoProfile -NoLogo -Command "[Environment]::SetEnvironmentVariable(\"Path\", \$env:Path + \";$scripts_folder\", \"User\")" 
 fi
 
-
-
+echo "Testing if path starts with ."
+echo $PATH
+if [[ ! $PATH == .\;* ]]; then
+	echo Adding "." to path so that local Powershell scripts can be run without adding ./ in front
+	pwsh -NoProfile -NoLogo -Command "[Environment]::SetEnvironmentVariable(\"Path\", \".;\" + \$env:Path, \"User\")" 
+fi
 

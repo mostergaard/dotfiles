@@ -59,5 +59,6 @@
     "Microsoft.VisualStudio.Workload.Node",
     "Microsoft.VisualStudio.Component.FSharp.Desktop",
     "Microsoft.VisualStudio.Web.Mvc4.ComponentGroup"
-  ]
+  ],
+  "extensions": []
 }

@@ -35,3 +35,6 @@ winget install JanDeDobbeleer.OhMyPosh
 
 echo Installing PowerToys
 winget install Microsoft.PowerToys
+
+echo Installing Docker Desktop
+winget install Docker.DockerDesktop
