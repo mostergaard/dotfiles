@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "homebrew/cask": {
-        "revision": "698995f82b0e09d78bb94009f86785f8be64662f"
+        "revision": "bbe6f472ee88ccdfbf48c8db2ca8104aeb2e4faa"
       },
       "microsoft/git": {
         "revision": "5aec5a8fc0c60bcff8e5b60e943e4a42f8da4498"
@@ -450,7 +450,7 @@
         }
       },
       "docker": {
-        "version": "4.33.0,160616",
+        "version": "4.34.0,165256",
         "options": {
           "full_name": "docker"
         }
@@ -478,13 +478,19 @@
         "options": {
           "full_name": "postman"
         }
+      },
+      "warp": {
+        "version": "0.2024.08.27.08.02.stable_02",
+        "options": {
+          "full_name": "warp"
+        }
       }
     }
   },
   "system": {
     "macos": {
       "sonoma": {
-        "HOMEBREW_VERSION": "4.3.18",
+        "HOMEBREW_VERSION": "4.3.19",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
         "CLT": "15.3.0.0.1.1708646388",
