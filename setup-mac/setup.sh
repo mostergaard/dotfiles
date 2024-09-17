@@ -12,16 +12,22 @@ function setup_oh_my_zsh {
 }
 
 function setup_dotnet {
-
   # TODO: Detect it Dotnet core is installed and if not, output a link to install from
   echo "Installing .NET Core"
+}
 
+function setup_rust {
+  echo "Setting up Rust"
+  rustup-init --no-modify-path -y 
 }
 
 function setup_xcode {
   # Install Xcode through the Mac App Store - using the "mas" CLI installed throw Brew. The xcode app has ID 497799835
   echo "Installing Xcode from App store"
   mas install 497799835
+
+  echo "Accepting the Xcode license"
+  sudo xcodebuild -license accept
 }
 
 function config_git {
@@ -117,6 +123,7 @@ if [[ "$system_type" = "Darwin" ]]; then
   setup_brew
   setup_oh_my_zsh
   setup_dotnet
+  setup_rust
   setup_xcode
   config_git
   config_jdk

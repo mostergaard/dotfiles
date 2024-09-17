@@ -8,6 +8,7 @@ brew 'zsh'
 brew 'zsh-completions'
 brew 'kubectl'
 brew 'java'
+brew 'rustup'
 brew 'tmux'
 brew 'gh'  # GitHub CLI
 brew 'mas' # Mac App Store CLI
