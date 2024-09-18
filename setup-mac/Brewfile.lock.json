@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "homebrew/cask": {
-        "revision": "2a65fb40f3f560e600fe835d53cd8970cea4825b"
+        "revision": "47559b219aa745cbe7e5190e8e7dcf5d66a45e7d"
       },
       "microsoft/git": {
         "revision": "5aec5a8fc0c60bcff8e5b60e943e4a42f8da4498"
