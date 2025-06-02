@@ -10,6 +10,7 @@ brew 'kubectl'
 brew 'java'
 brew 'rustup'
 brew 'tmux'
+brew 'grpcurl'
 brew 'gh'  # GitHub CLI
 brew 'mas' # Mac App Store CLI
 
