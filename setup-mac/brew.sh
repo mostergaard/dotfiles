@@ -15,9 +15,6 @@ function setup_brew {
     brew update
   fi
   
-  echo "Installing Brew bundle"
-  brew tap Homebrew/bundle
-
   echo "Running Brew bundle"
   brew bundle 
 }
