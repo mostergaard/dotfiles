@@ -1,4 +1,3 @@
-tap 'homebrew/cask'
 tap 'microsoft/git'
 
 brew 'git'
@@ -7,10 +6,13 @@ brew 'node'
 brew 'zsh'
 brew 'zsh-completions'
 brew 'kubectl'
+brew 'helm'
+brew 'helmfile'
 brew 'java'
 brew 'rustup'
 brew 'tmux'
 brew 'grpcurl'
+brew 'awscli'
 brew 'gh'  # GitHub CLI
 brew 'mas' # Mac App Store CLI
 
