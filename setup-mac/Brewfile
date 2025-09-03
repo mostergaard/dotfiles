@@ -19,9 +19,10 @@ brew 'mas' # Mac App Store CLI
 cask 'visual-studio-code'
 cask 'git-credential-manager'
 cask 'iterm2'
-cask 'docker'
+#cask 'docker' # I've installed manually for now
 cask 'beyond-compare'
 cask 'kreya'
 cask 'redis-insight'
 cask 'postman'
 cask 'warp'
+cask 'openlens'
