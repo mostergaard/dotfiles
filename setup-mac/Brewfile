@@ -13,6 +13,7 @@ brew 'rustup'
 brew 'tmux'
 brew 'grpcurl'
 brew 'awscli'
+brew 'oras'
 brew 'gh'  # GitHub CLI
 brew 'mas' # Mac App Store CLI
 
