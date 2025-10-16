@@ -14,6 +14,10 @@ brew 'tmux'
 brew 'grpcurl'
 brew 'awscli'
 brew 'oras'
+brew 'skaffold'
+brew 'kustomize'
+brew 'terraform'
+brew 'k9s'
 brew 'gh'  # GitHub CLI
 brew 'mas' # Mac App Store CLI
 
