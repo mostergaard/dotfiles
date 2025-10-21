@@ -1,4 +1,5 @@
 tap 'microsoft/git'
+tap 'chainguard-dev/tap'
 
 brew 'git'
 brew 'volta'
@@ -18,6 +19,7 @@ brew 'skaffold'
 brew 'kustomize'
 brew 'terraform'
 brew 'k9s'
+brew 'chainctl'
 brew 'gh'  # GitHub CLI
 brew 'mas' # Mac App Store CLI
 
