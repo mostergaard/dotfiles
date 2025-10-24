@@ -1,5 +1,6 @@
 tap 'microsoft/git'
 tap 'chainguard-dev/tap'
+tap 'hashicorp/tap'
 
 brew 'git'
 brew 'volta'
@@ -17,7 +18,7 @@ brew 'awscli'
 brew 'oras'
 brew 'skaffold'
 brew 'kustomize'
-brew 'terraform'
+brew 'hashicorp/tap/terraform'
 brew 'k9s'
 brew 'chainctl'
 brew 'gh'  # GitHub CLI
