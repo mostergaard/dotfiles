@@ -13,6 +13,7 @@ brew 'helmfile'
 brew 'java'
 brew 'rustup'
 brew 'tmux'
+brew 'tree'
 brew 'grpcurl'
 brew 'awscli'
 brew 'oras'
@@ -21,6 +22,7 @@ brew 'kustomize'
 brew 'hashicorp/tap/terraform'
 brew 'k9s'
 brew 'chainctl'
+brew 'cilium-cli'
 brew 'gh'  # GitHub CLI
 brew 'mas' # Mac App Store CLI
 
