@@ -11,10 +11,9 @@ winget install --id Git.Git -e --source winget
 echo. 
 echo -- Making sure Git Bash is installed...
 echo. 
-if not exist "%PROGRAMFILES%\Git\bin\bash.exe" (
+if not exist "%LOCALAPPDATA%\Programs\Git\bin\bash.exe" (
 	echo Could not find Git and Git Bash. Exiting.
 	exit /b 1
-	rem TODO: In some cases, we've seen that Git was installed not in %PROGRAMFILES%
 )
 
 echo. 
