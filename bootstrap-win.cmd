@@ -40,7 +40,7 @@ if not exist "dotfiles" (
 echo.
 echo -- Executing the setup script from "dotfiles" in Git Bash...
 echo.
-call "%PROGRAMFILES%\Git\bin\bash.exe" -c './setup-win/setup.sh'
+call "%LOCALAPPDATA%\Programs\Git\bin\bash.exe" -c './setup-win/setup.sh'
 
 echo.
 echo -- Finished bootstrapping on Windows
