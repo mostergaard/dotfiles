@@ -1,7 +1,12 @@
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+
 function Install-If-Not-Found([string] $ModuleName)
 {
 	if (-Not (Get-Module -ListAvailable -Name $ModuleName)) {
+		Write-Host "Module $ModuleName not found. Installing..."
 		Install-Module -Name $ModuleName -Force  
+	} else {
+		Write-Host "Module $ModuleName is already installed."	
 	}
 }
 
