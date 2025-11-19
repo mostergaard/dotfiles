@@ -11,7 +11,7 @@ winget install --id Git.Git -e --source winget
 echo. 
 echo -- Making sure Git Bash is installed...
 echo. 
-if not exist "%LOCALAPPDATA%\Programs\Git\bin\bash.exe" (
+if not exist "%PROGRAMFILES%\Git\bin\bash.exe" (
 	echo Could not find Git and Git Bash. Exiting.
 	exit /b 1
 )
@@ -39,7 +39,7 @@ if not exist "dotfiles" (
 echo.
 echo -- Executing the setup script from "dotfiles" in Git Bash...
 echo.
-call "%LOCALAPPDATA%\Programs\Git\bin\bash.exe" -c './setup-win/setup.sh'
+call "%PROGRAMFILES%\Git\bin\bash.exe" -c './setup-win/setup.sh'
 
 echo.
 echo -- Finished bootstrapping on Windows

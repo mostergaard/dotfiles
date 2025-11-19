@@ -11,5 +11,5 @@ echo "===> Some of the installs might add new PATH vars, in which case you will 
 
 ./setup-config-git.sh
 ./setup-config-bc.sh
-#./setup-config-terminals.sh
+./setup-config-terminals.sh
 ./setup-config-npm-and-nuget.sh
