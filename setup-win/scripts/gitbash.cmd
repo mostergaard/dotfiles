@@ -1,1 +1,1 @@
-@"%LOCALAPPDATA%\Programs\Git\bin\bash.exe"
+@"%PROGRAMFILES%\Git\bin\bash.exe"
