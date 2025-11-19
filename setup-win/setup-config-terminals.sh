@@ -51,3 +51,4 @@ if [[ ! $PATH == .\;* ]]; then
 	pwsh -NoProfile -NoLogo -Command "[Environment]::SetEnvironmentVariable(\"Path\", \".;\" + \$env:Path, \"User\")" 
 fi
 
+# TODO: Setup symlinks for PowerToys Keyboard Manager stored in %LOCALAPPDATA%\Microsoft\PowerToys\Keyboard Manager (settings.json and default.json)
