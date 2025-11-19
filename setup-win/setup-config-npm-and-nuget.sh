@@ -34,6 +34,15 @@ if [[ $found_nuget_source == 1 || ! -f "$npmrc_file" ]]; then
 	fi 
 fi
 
+# Most repo's that use Ninja might have a nuget.config file in the root, so we may not need this...
+# nuget_source_ninja="https://nuget.siteimprove.ninja/nuget"
+# dotnet nuget list source | grep -q $nuget_source_ninja
+# found_ninja_nuget_source=$?
+# if [[ $found_ninja_nuget_source == 1 ]]; then
+# 	echo "Configuring NuGet source for the old internal Siteimprove NuGet repo (Ninja)"
+# 	dotnet nuget add source --name "Siteimprove Old NuGet" $nuget_source_ninja
+# fi
+
 # TODO: Should we put the PAT in an env. var separate to this and then just generate it here without prompt? Maybe we could do the same with BC...
 
 echo "Making sure LTS version of node and npm is installed"
