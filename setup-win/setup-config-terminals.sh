@@ -38,17 +38,18 @@ ln -fT "$wt_settings_source" "$wt_settings_file"
 rm -f "$wt_folder\state.json"
 rm -f "$wt_folder\elevated-state.json"
 
-scripts_folder="C:\code\dotfiles\setup-win\scripts"
-if [[ ! $PATH == *$scripts_folder* ]]; then
-	echo Adding $scripts_folder to path
-	pwsh -NoProfile -NoLogo -Command "[Environment]::SetEnvironmentVariable(\"Path\", \$env:Path + \";$scripts_folder\", \"User\")" 
-fi
+# I think this is causing issues, so commenting out for now!
+# scripts_folder="C:\code\dotfiles\setup-win\scripts"
+# if [[ ! $PATH == *$scripts_folder* ]]; then
+# 	echo Adding $scripts_folder to path
+# 	pwsh -NoProfile -NoLogo -Command "[Environment]::SetEnvironmentVariable(\"Path\", \$env:Path + \";$scripts_folder\", \"User\")" 
+# fi
 
-echo "Testing if path starts with ."
-echo $PATH
-if [[ ! $PATH == .\;* ]]; then
-	echo Adding "." to path so that local Powershell scripts can be run without adding ./ in front
-	pwsh -NoProfile -NoLogo -Command "[Environment]::SetEnvironmentVariable(\"Path\", \".;\" + \$env:Path, \"User\")" 
-fi
+# echo "Testing if path starts with ."
+# echo $PATH
+# if [[ ! $PATH == .\;* ]]; then
+# 	echo Adding "." to path so that local Powershell scripts can be run without adding ./ in front
+# 	pwsh -NoProfile -NoLogo -Command "[Environment]::SetEnvironmentVariable(\"Path\", \".;\" + \$env:Path, \"User\")" 
+# fi
 
 # TODO: Setup symlinks for PowerToys Keyboard Manager stored in %LOCALAPPDATA%\Microsoft\PowerToys\Keyboard Manager (settings.json and default.json)
