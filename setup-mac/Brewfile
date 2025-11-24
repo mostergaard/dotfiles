@@ -36,3 +36,4 @@ cask 'redis-insight'
 cask 'postman'
 #cask 'warp'
 cask 'openlens'
+#cash 'powershell' # Will not be installed from homebrew soon, so download from https://github.com/MicrosoftDocs/PowerShell-Docs/blob/main/reference/docs-conceptual/install/install-powershell-on-macos.md#install-the-package-via-direct-download
