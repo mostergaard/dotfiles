@@ -34,8 +34,11 @@ winget install Docker.DockerDesktop
 echo Installing Redis Insight
 winget install RedisInsight.RedisInsight
 
-echo Installing Microsoft Web Deploy (for PFG)
-winget install --id Microsoft.WebDeploy --accept-package-agreements --accept-source-agreements
+# echo Installing Microsoft Web Deploy (for PFG)
+# winget install --id Microsoft.WebDeploy --accept-package-agreements --accept-source-agreements
+
+echo Installing Github CLI
+winget install --id GitHub.cli
 
 # We are using WSL2 for Docker, so we may not need Hyper-V enabled anyway...
 # echo Enabling Hyper-V feature
