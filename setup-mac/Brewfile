@@ -25,6 +25,7 @@ brew 'chainctl'
 brew 'cilium-cli'
 brew 'gh'  # GitHub CLI
 brew 'mas' # Mac App Store CLI
+brew 'huseyinbabal/tap/taws' # Terminal AWS CLI wrapper
 
 cask 'visual-studio-code'
 cask 'git-credential-manager'
