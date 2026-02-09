@@ -18,5 +18,6 @@ aws_secret_access_key=$($cred.SecretAccessKey)
 aws_session_token=$($cred.SessionToken)
 "@
 
-
 Set-Content -Path $targetPath -Value $content
+
+Write-Host "AWS credentials for profile '$sourceProfile' have been exported to '$targetPath'."
