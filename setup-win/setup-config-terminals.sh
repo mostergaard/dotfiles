@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo Setting PowerShell execution policy
-pwsh -NoProfile -NoLogo -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned" 
+# echo Setting PowerShell execution policy
+# pwsh -NoProfile -NoLogo -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned" 
 
 echo Installing PowerShell modules
 pwsh -NoProfile -NoLogo "./install-ps-modules.ps1"
@@ -53,3 +53,4 @@ rm -f "$wt_folder\elevated-state.json"
 # fi
 
 # TODO: Setup symlinks for PowerToys Keyboard Manager stored in %LOCALAPPDATA%\Microsoft\PowerToys\Keyboard Manager (settings.json and default.json)
+# TODO: Run PowerToys as admin, enable only 3 modules in PowerTows (Keyboard Manager, Hostfile editor and Environment variables)
