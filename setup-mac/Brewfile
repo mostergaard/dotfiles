@@ -27,6 +27,7 @@ brew 'linkerd'
 brew 'gh'  # GitHub CLI
 brew 'mas' # Mac App Store CLI
 brew 'huseyinbabal/tap/taws' # Terminal AWS CLI wrapper
+brew 'anomalyco/tap/opencode'
 
 cask 'visual-studio-code'
 cask 'git-credential-manager'
