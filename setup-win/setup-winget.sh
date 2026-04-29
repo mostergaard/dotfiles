@@ -59,6 +59,9 @@ winget install --id=Chainguard.chainctl -e
 echo Installing Cilium CLI
 winget install --id=Cilium.CiliumCLI -e
 
+echo Installling Claude Code
+winget install Anthropic.ClaudeCode
+
 echo Enabling Windows features for Containers and Hyper-V
 powershell.exe -Command "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V, Containers -All"
 
