@@ -36,7 +36,7 @@ cask 'git-credential-manager'
 cask 'iterm2'
 #cask 'docker' # I've installed manually for now
 cask 'beyond-compare'
-cask 'kreya'
+#cask 'kreya'
 cask 'redis-insight'
 cask 'postman'
 #cask 'warp'

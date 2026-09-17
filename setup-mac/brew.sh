@@ -15,6 +15,13 @@ function setup_brew {
     brew update
   fi
   
+  echo "Trusting Brew taps"
+  brew trust microsoft/git
+  brew trust hashicorp/tap
+  brew trust chainguard-dev/tap
+  brew trust --formula huseyinbabal/tap/taws
+  brew trust --formula anomalyco/tap/opencode
+
   echo "Running Brew bundle"
   brew bundle 
 }
