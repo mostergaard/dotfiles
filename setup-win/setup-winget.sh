@@ -3,12 +3,19 @@
 echo Installing DotNet SDK version 8
 winget install Microsoft.DotNet.SDK.8
 
+echo Installing DotNet SDK version 9
+winget install Microsoft.DotNet.SDK.9
+
+echo Installing DotNet SDK version 10
+winget install Microsoft.DotNet.SDK.10
+
 # This doesn't seem to work anymore. Use the Company Portal to install
 # echo Installing Visual Studio 2022 Professional
 # winget install --id Microsoft.VisualStudio.2022.Professional --override "--quiet --passive --config c:\code\dotfiles\setup-win\vs2022prof.vsconfig"
 
-echo Installing Visual Studio Code
-winget install --id Microsoft.VisualStudioCode
+# This doesn't seem to work anymore. Use the Company Portal to install
+# echo Installing Visual Studio Code
+# winget install --id Microsoft.VisualStudioCode
 
 echo Installing Volta
 winget install --id Volta.Volta
@@ -62,8 +69,8 @@ winget install --id=Cilium.CiliumCLI -e
 echo Installling Claude Code
 winget install Anthropic.ClaudeCode
 
-echo Enabling Windows features for Containers and Hyper-V
-powershell.exe -Command "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V, Containers -All"
+# echo Enabling Windows features for Containers and Hyper-V
+# powershell.exe -Command "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V, Containers -All"
 
 # We are using WSL2 for Docker, so we may not need Hyper-V enabled anyway...
 # echo Enabling Hyper-V feature
