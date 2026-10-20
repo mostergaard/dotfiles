@@ -120,7 +120,7 @@ export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
 # Add the scripts folder from dotfiles to the PATH
-export PATH="$HOME/Code/dotfiles/setup-mac/scripts:$PATH"
+export PATH="$HOME/Code/dotfiles/setup-mac/scripts:$HOME/Code/dotfiles/scripts:$PATH"
 
 # Add .local/bin to the PATH
 export PATH="$HOME/.local/bin:$PATH"
