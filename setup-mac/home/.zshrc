@@ -107,7 +107,8 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 . $HOME/.cargo/env
 
 # Add current directory to PATH to avoid writing "./xx.sh"
-export PATH=$PATH:. 
+# This is generally not recommended as it can lead to security risks by executing scripts from the current directory.
+#export PATH=$PATH:.
 
 # Set the default behaviour of LESS
 export LESS="FRX" 
@@ -134,6 +135,7 @@ export EDITOR='code --wait'
 
 # Aliases
 alias k8s='kubectl'
+alias run='./run.sh'
 
 # Jump to the /Code folder
 export START="$HOME/Code"
