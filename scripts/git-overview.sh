@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # git-overview.sh - report uncommitted/unpushed work across all git checkouts below a folder,
-# and optionally delete local branches that are already merged on the remote.
+# and optionally delete local branches that are merged on the remote or fully pushed to it.
 #
 # Portable: Bash 3.2+ (macOS default, Git Bash on Windows). Needs only git + coreutils.
 #
@@ -10,9 +10,13 @@
 #   -d, --depth N       How many levels deep to look for repos (default: 2)
 #   -n, --no-fetch      Skip 'git fetch --prune' (faster, but ahead/behind info is only as fresh as the last fetch)
 #   -a, --all           Show every repo, including clean ones (default: only repos needing attention)
-#   -c, --clean         Clean mode: list local branches that are merged into the remote default branch.
-#                       If the checked-out branch qualifies and the working tree is clean, the default
-#                       branch is checked out first so it can be deleted too.
+#   -c, --clean         Clean mode: list local branches that are merged into the remote default branch, or
+#                       fully pushed (not ahead of their upstream), since those can be re-created from the remote.
+#                       If the checked-out branch is merged and the working tree is clean, the default
+#                       branch is checked out first so it can be deleted too. A checked-out branch that is
+#                       only fully pushed is left alone.
+#                       Also repairs a fetch that fails because two remote-tracking refs differ only in case
+#                       (e.g. origin/Foo and origin/foo on a case-insensitive filesystem) by removing the stale ones.
 #       --gone          In clean mode, also include branches whose upstream branch no longer exists
 #                       (typical after a squash merge + remote branch deletion). Requires fetching.
 #   -y, --yes           In clean mode, actually delete the branches (default is a dry run)
@@ -80,12 +84,50 @@ default_branch() {
     echo "$ref"
 }
 
+# On a case-insensitive filesystem, refs like origin/Update-TKs and origin/update-tks share a lock file, so pruning
+# both in one fetch fails. Deleting them one at a time works. Only refs whose branch is gone from the remote are removed.
+repair_case_collisions() {
+    local dir="$1" dups remote_refs ref removed=0
+    dups="$(git -C "$dir" for-each-ref --format='%(refname)' refs/remotes/origin | tr '[:upper:]' '[:lower:]' | sort | uniq -d)"
+    [ -z "$dups" ] && return 1
+    remote_refs="$(git -C "$dir" ls-remote --heads origin 2>/dev/null | cut -f2 | sed 's#^refs/heads/#refs/remotes/origin/#')"
+    [ -z "$remote_refs" ] && return 1
+    while IFS= read -r ref; do
+        printf '%s\n' "$dups" | grep -qxF "$(printf '%s' "$ref" | tr '[:upper:]' '[:lower:]')" || continue
+        printf '%s\n' "$remote_refs" | grep -qxF "$ref" && continue
+        git -C "$dir" update-ref -d "$ref" && removed=$((removed + 1))
+    done <<EOT
+$(git -C "$dir" for-each-ref --format='%(refname)' refs/remotes/origin)
+EOT
+    [ "$removed" -gt 0 ]
+}
+
+# Fetch with prune; sets fetch_out to a formatted status line (empty when all went well).
+fetch_repo() {
+    local dir="$1" err
+    fetch_out=""
+    err="$(git -C "$dir" fetch --prune --quiet 2>&1 >/dev/null)" && return 0
+    if [ "$clean_mode" = 1 ] && repair_case_collisions "$dir"; then
+        if err="$(git -C "$dir" fetch --prune --quiet 2>&1 >/dev/null)"; then
+            fetch_out="  ${GRN}repaired${RST} stale remote-tracking refs that differed only in case"$'\n'
+            return 0
+        fi
+    fi
+    err="$(printf '%s\n' "$err" | grep -m1 -E '^(error|fatal):' || printf '%s\n' "$err" | head -n1)"
+    case "$err" in
+        *"cannot lock ref"*) [ "$clean_mode" = 0 ] && err="$err (run with --clean to repair)" ;;
+    esac
+    fetch_out="  ${YEL}! fetch failed: ${err:-unknown error}${RST}"$'\n'
+    return 1
+}
+
 report_repo() {
     local dir="$1" name="$2"
     local out="" status detached current
 
     if [ "$do_fetch" = 1 ]; then
-        git -C "$dir" fetch --prune --quiet 2>/dev/null || out="$out  ${YEL}! fetch failed (offline or no access)${RST}"$'\n'
+        fetch_repo "$dir"
+        out="$out$fetch_out"
     fi
 
     current="$(git -C "$dir" symbolic-ref -q --short HEAD 2>/dev/null)"
@@ -139,10 +181,11 @@ EOT
 
 clean_repo() {
     local dir="$1" name="$2"
-    local base current candidates="" reason current_reason="" current_blocked=""
+    local base current candidates="" reason current_reason="" current_blocked="" note=""
 
     if [ "$do_fetch" = 1 ]; then
-        git -C "$dir" fetch --prune --quiet 2>/dev/null
+        fetch_repo "$dir"
+        note="$fetch_out"
         # Make sure origin/HEAD reflects the remote's real default branch instead of a guess
         git -C "$dir" remote set-head origin --auto >/dev/null 2>&1
     fi
@@ -160,6 +203,10 @@ clean_repo() {
             reason="merged into $base"
         elif [ "$include_gone" = 1 ] && [ "$track" = "[gone]" ]; then
             reason="upstream $upstream is gone"
+        elif [ -n "$upstream" ] && [ "$branch" != "$current" ]; then
+            case "$track" in
+                ""|"[behind "*) reason="fully pushed to $upstream" ;;
+            esac
         fi
         [ -z "$reason" ] && continue
         if [ "$branch" = "$current" ]; then
@@ -179,9 +226,9 @@ $(git -C "$dir" for-each-ref --format='%(refname:short)|%(upstream:short)|%(upst
 EOT
 
     repos=$((repos + 1))
-    [ -z "$candidates" ] && [ -z "$current_reason" ] && [ -z "$current_blocked" ] && return
+    [ -z "$candidates" ] && [ -z "$current_reason" ] && [ -z "$current_blocked" ] && [ -z "$note" ] && return
 
-    printf '%s%s%s %s(%s)%s\n' "$BOLD" "$name" "$RST" "$DIM" "${current:-detached}" "$RST"
+    printf '%s%s%s %s(%s)%s\n%s' "$BOLD" "$name" "$RST" "$DIM" "${current:-detached}" "$RST" "$note"
 
     if [ -n "$current_blocked" ]; then
         printf '  %sskipped%s %s  %s(checked out, %s)%s\n' "$YEL" "$RST" "$current" "$DIM" "$current_blocked" "$RST"
