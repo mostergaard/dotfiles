@@ -6,7 +6,7 @@
 #
 # Usage: git-overview.sh [options] [root-dir]
 #
-#   root-dir            Folder to scan (default: the folder this script lives in)
+#   root-dir            Folder to scan (default: the current directory)
 #   -d, --depth N       How many levels deep to look for repos (default: 2)
 #   -n, --no-fetch      Skip 'git fetch --prune' (faster, but ahead/behind info is only as fresh as the last fetch)
 #   -a, --all           Show every repo, including clean ones (default: only repos needing attention)
@@ -47,9 +47,7 @@ while [ $# -gt 0 ]; do
     shift
 done
 
-if [ -z "$root" ]; then
-    root="$(cd "$(dirname "$0")" && pwd)"
-fi
+root="${root:-$PWD}"
 if [ ! -d "$root" ]; then
     echo "Not a directory: $root" >&2
     exit 2
