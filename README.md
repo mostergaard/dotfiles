@@ -24,6 +24,11 @@ Steps that need admin pause and ask you to request it through Self Service+.
 - [ ] Copy `~/.claude/settings.json` and `~/.claude/projects/*/memory/` (memory folders are named after the repo paths, so keep `~/Code`)
 - [ ] Re-add the Sourcegraph MCP server, from `~/Code`: `claude mcp add --transport http sg https://siteimprove.sourcegraphcloud.com/.api/mcp`
 
+## Not configured by the bootstrapper
+
+- [ ] Touch ID: System Settings -> Touch ID & Password -> add fingerprints
+- [ ] Smaller text: System Settings -> Displays -> pick a resolution towards "More Space"
+
 ## Not installed by the bootstrapper
 
 Tools:

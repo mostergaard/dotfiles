@@ -146,6 +146,54 @@ function config_file_associations {
   duti ./file-associations.duti
 }
 
+function config_macos {
+  echo "Configuring macOS settings (trackpad and keyboard changes apply after logging out and in)"
+  # Built-in and Bluetooth trackpads: tap to click and three-finger drag.
+  # Like System Settings does, three-finger drag moves the swipes between Spaces and to Mission Control to four fingers.
+  for trackpad in com.apple.AppleMultitouchTrackpad com.apple.driver.AppleBluetoothMultitouch.trackpad; do
+    defaults write $trackpad Clicking -bool true
+    defaults write $trackpad TrackpadThreeFingerDrag -bool true
+    defaults write $trackpad TrackpadThreeFingerHorizSwipeGesture -int 0
+    defaults write $trackpad TrackpadThreeFingerVertSwipeGesture -int 0
+    defaults write $trackpad TrackpadFourFingerHorizSwipeGesture -int 2
+    defaults write $trackpad TrackpadFourFingerVertSwipeGesture -int 2
+  done
+  defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+  defaults write NSGlobalDomain com.apple.mouse.scaling -float 0.875
+
+  defaults write NSGlobalDomain AppleInterfaceStyle Dark
+
+  defaults write com.apple.dock tilesize -int 41
+  defaults write com.apple.dock magnification -bool true
+  defaults write com.apple.dock largesize -int 50
+  defaults write com.apple.dock show-recents -bool false
+  # No hot corners (1 = no action), which also removes Quick Note from the bottom-right corner
+  for corner in tl tr bl br; do
+    defaults write com.apple.dock wvous-$corner-corner -int 1
+    defaults write com.apple.dock wvous-$corner-modifier -int 0
+  done
+  killall Dock
+
+  # Column view, path bar, and new windows showing the Computer
+  defaults write com.apple.finder FXPreferredViewStyle clmv
+  defaults write com.apple.finder ShowPathbar -bool true
+  defaults write com.apple.finder NewWindowTarget PfCm
+  killall Finder
+
+  defaults write com.apple.WindowManager EnableTiledWindowMargins -bool false
+
+  # The fastest repeat and shortest delay offered in System Settings
+  defaults write NSGlobalDomain KeyRepeat -int 2
+  defaults write NSGlobalDomain InitialKeyRepeat -int 15
+  # F1-F12 act as function keys without holding Fn
+  defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
+
+  # Disable "Show Desktop" (hotkey 36) so F11 reaches the debugger as "step into"
+  defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 36 \
+    "<dict><key>enabled</key><false/><key>value</key><dict><key>parameters</key><array><integer>65535</integer><integer>103</integer><integer>8388608</integer></array><key>type</key><string>standard</string></dict></dict>"
+  /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+}
+
 function config_dotfiles {
   echo "Linking dotfiles into $HOME"
   # Link files rather than folders, as apps often keep machine state next to their config (e.g. ~/.claude)
@@ -178,5 +226,6 @@ if [[ "$system_type" = "Darwin" ]]; then
   config_npm_and_nuget
   config_bc
   config_file_associations
+  config_macos
   config_dotfiles
 fi
