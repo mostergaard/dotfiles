@@ -104,17 +104,10 @@ source $ZSH/oh-my-zsh.sh
 export PATH="$PATH:$HOME/.dotnet/tools"
 
 # Add Rust and Cargo to Path
-. $HOME/.cargo/env
-
-# Add current directory to PATH to avoid writing "./xx.sh"
-# This is generally not recommended as it can lead to security risks by executing scripts from the current directory.
-#export PATH=$PATH:.
+[[ -f $HOME/.cargo/env ]] && . $HOME/.cargo/env
 
 # Set the default behaviour of LESS
 export LESS="FRX" 
-
-# Prioritise Homebrew over system-installed tools (like Git)
-export PATH="/opt/homebrew/bin:$PATH"
 
 # Add Volta to the PATH (after Homebrew, as it ALSO have a "node" command!)
 export VOLTA_HOME="$HOME/.volta"

@@ -2,10 +2,20 @@
 
 source ./brew.sh
 
+function ensure_admin {
+  # Unlike `id`, dseditgroup asks the directory, so a grant made while this script runs is picked up
+  until dseditgroup -o checkmember -m "$USER" admin > /dev/null 2>&1; do
+    echo "===> The next step needs admin privileges. Request them through the Self Service+ app and press <enter> to continue."
+    read
+  done
+}
+
 function setup_oh_my_zsh {
   if [[ -z "${ZSH}" ]]; then
     echo "Installing Oh My Zsh"
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    # RUNZSH=no stops the installer from exec'ing into zsh, which would end this script early.
+    # KEEP_ZSHRC=yes stops it from replacing ~/.zshrc, which is linked to the repo by config_dotfiles.
+    RUNZSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   else
     $ZSH/tools/upgrade.sh
   fi
@@ -23,11 +33,19 @@ function setup_rust {
 
 function setup_xcode {
   # Install Xcode through the Mac App Store - using the "mas" CLI installed throw Brew. The xcode app has ID 497799835
-  echo "Installing Xcode from App store"
-  mas install 497799835
+  if [[ ! -d /Applications/Xcode.app ]]; then
+    ensure_admin
+    echo "Installing Xcode from App store"
+    sudo mas install 497799835
+  fi
 
-  echo "Accepting the Xcode license"
-  sudo xcodebuild -license accept
+  # Use Xcode's own xcodebuild, as xcode-select may still point at the Command Line Tools
+  xcodebuild=/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild
+  if ! $xcodebuild -license check > /dev/null 2>&1; then
+    ensure_admin
+    echo "Accepting the Xcode license"
+    sudo $xcodebuild -license accept
+  fi
 }
 
 function config_git {
@@ -37,8 +55,13 @@ function config_git {
 }
 
 function config_jdk {
-  echo "Configuring JDK"
-  sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+  jdk_target=/opt/homebrew/opt/openjdk/libexec/openjdk.jdk
+  jdk_link=/Library/Java/JavaVirtualMachines/openjdk.jdk
+  if [[ "$(readlink "$jdk_link")" != "$jdk_target" ]]; then
+    ensure_admin
+    echo "Configuring JDK"
+    sudo ln -sfn "$jdk_target" "$jdk_link"
+  fi
 }
 
 function config_k8s {
@@ -118,6 +141,25 @@ function config_bc {
   fi
 }
 
+function config_dotfiles {
+  echo "Linking dotfiles into $HOME"
+  for source in "$PWD"/home/.[!.]*; do
+    name=$(basename "$source")
+    [[ "$name" == ".DS_Store" ]] && continue
+    target="$HOME/$name"
+    if [[ "$(readlink "$target")" == "$source" ]]; then
+      continue
+    fi
+    # Also catches a link that a tool has replaced with a regular file
+    if [[ -e "$target" || -L "$target" ]]; then
+      backup="$target.backup-$(date +%Y%m%d%H%M%S)"
+      echo "Moving existing $target to $backup"
+      mv "$target" "$backup"
+    fi
+    ln -s "$source" "$target"
+  done
+}
+
 system_type=$(uname -s)
 if [[ "$system_type" = "Darwin" ]]; then
   setup_brew
@@ -130,4 +172,5 @@ if [[ "$system_type" = "Darwin" ]]; then
   config_k8s
   config_npm_and_nuget
   config_bc
+  config_dotfiles
 fi

@@ -1,42 +1,48 @@
-#!/bin/sh
+#!/bin/bash
 
-# Dotfile Manager
-# Use bare git repo to manage your dotfiles
-alias dfm="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@"
+# Download this file directly from GitHub to a temporary place and execute it - see README.md.
+# Don't pipe it into bash: the setup scripts read from the terminal.
 
-function dfm_init {
-  echo "Cloning dotfiles..."
-  git clone --bare https://github.com/mostergaard/dotfiles $HOME/.dotfiles
+set -e
 
-  echo "Checking out config..."
-  dfm checkout 2>&1
-  if [ $? = 0 ]; then
-    echo "Checked out config."
-  else
-    echo "Backing up pre-existing dot files."
-    mkdir -p .dotfiles-backup
-    dfm checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .dotfiles-backup/{}
-  fi
+# /usr/bin/git is only a stub until the Command Line Tools are installed. Homebrew needs them as well.
+# The latest Git gets installed later through the Brewfile.
+echo "-- Making sure the Xcode Command Line Tools are installed..."
+echo
+if ! xcode-select -p > /dev/null 2>&1; then
+  xcode-select --install
+  echo "===> Finish the Command Line Tools install in the dialog that opened. Waiting..."
+  until xcode-select -p > /dev/null 2>&1; do
+    sleep 5
+  done
+fi
 
-  echo "Retrying config checkout"
-  dfm checkout 2>&1
-  if [ $? = 0 ]; then
-    echo "checked out config"
-  else
-    echo "config checkout failed, clean your environment and try again"
-    exit 1
-  fi
+echo
+echo "-- Making sure ~/Code exists..."
+echo
+mkdir -p "$HOME/Code"
+cd "$HOME/Code"
 
-  dfm config status.showUntrackedFiles no
-
-  # Run install scripts 
-  read -p "Would you like to run bootstrap scripts (y/n):" -n -r
+if [ ! -d dotfiles ]; then
   echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    source ./.setup-scripts/bootstrap.sh
-  else 
-    exit 0
-  fi
-}
+  echo "-- Checking out the \"dotfiles\" repo from GitHub..."
+  echo
+  git clone https://github.com/mostergaard/dotfiles.git
+  cd dotfiles
+else
+  echo
+  echo "-- Updating the \"dotfiles\" repo..."
+  echo
+  cd dotfiles
+  git pull
+fi
 
-[ ! -d $HOME/.dotfiles ] && dfm_init
+echo
+echo "-- Executing the setup script from \"dotfiles\"..."
+echo
+# setup.sh sources brew.sh and runs brew bundle relative to the working directory
+(cd setup-mac && ./setup.sh)
+
+echo
+echo "-- Finished bootstrapping on Mac"
+echo
