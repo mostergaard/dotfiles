@@ -141,12 +141,17 @@ function config_bc {
   fi
 }
 
+function config_file_associations {
+  echo "Setting default apps for file types"
+  duti ./file-associations.duti
+}
+
 function config_dotfiles {
   echo "Linking dotfiles into $HOME"
-  for source in "$PWD"/home/.[!.]*; do
-    name=$(basename "$source")
-    [[ "$name" == ".DS_Store" ]] && continue
-    target="$HOME/$name"
+  # Link files rather than folders, as apps often keep machine state next to their config (e.g. ~/.claude)
+  find "$PWD/home" -type f ! -name .DS_Store | while read -r source; do
+    target="$HOME/${source#$PWD/home/}"
+    mkdir -p "$(dirname "$target")"
     if [[ "$(readlink "$target")" == "$source" ]]; then
       continue
     fi
@@ -172,5 +177,6 @@ if [[ "$system_type" = "Darwin" ]]; then
   config_k8s
   config_npm_and_nuget
   config_bc
+  config_file_associations
   config_dotfiles
 fi

@@ -3,6 +3,7 @@ tap 'chainguard-dev/tap'
 tap 'hashicorp/tap'
 
 brew 'git'
+brew 'git-lfs'
 brew 'volta'
 brew 'node'
 brew 'zsh'
@@ -30,16 +31,34 @@ brew 'mas' # Mac App Store CLI
 brew 'huseyinbabal/tap/taws' # Terminal AWS CLI wrapper
 brew 'anomalyco/tap/opencode'
 brew 'lazygit'
+brew 'herdr' # Terminal agent multiplexer
+brew 'yq'
+brew 'awscurl'
+brew 'syft' # SBOM from container images
+brew 'bats-core'
+brew 'duckdb'
+brew 'duti' # Set default apps for file types
+brew 'python@3.12'
 
 cask 'visual-studio-code'
 cask 'git-credential-manager'
-cask 'iterm2'
-#cask 'docker' # I've installed manually for now
+cask 'docker-desktop'
 cask 'beyond-compare'
-#cask 'kreya'
 cask 'redis-insight'
 cask 'postman'
-#cask 'warp'
+cask 'warp'
 cask 'openlens'
-#cash 'powershell' # Will not be installed from homebrew soon, so download from https://github.com/MicrosoftDocs/PowerShell-Docs/blob/main/reference/docs-conceptual/install/install-powershell-on-macos.md#install-the-package-via-direct-download
+cask 'fork'
+cask 'drawio'
+cask 'figma'
+cask 'windows-app'
+cask 'claude'
+cask 'copilot-cli'
 cask 'claude-code'
+
+# Will not be installed from homebrew soon, so download from https://github.com/MicrosoftDocs/PowerShell-Docs/blob/main/reference/docs-conceptual/install/install-powershell-on-macos.md#install-the-package-via-direct-download
+#cash 'powershell' 
+
+# Apps I don't really use anymore
+#cask 'iterm2'
+#cask 'kreya'

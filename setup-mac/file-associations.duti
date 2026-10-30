@@ -1,0 +1,49 @@
+# Default apps per file type, applied with `duti <this file>`. Format: <bundle id> <type id> <role>
+# duti only allows comments on their own line.
+# Extensions without a registered type get a generated dyn.* id - find one with: mdls -raw -name kMDItemContentType <file>
+# .ts is left out on purpose: macOS maps it to MPEG-2 video (public.mpeg-2-transport-stream)
+
+# Text and config
+com.microsoft.VSCode  public.plain-text                     all
+com.microsoft.VSCode  public.yaml                           all
+com.microsoft.VSCode  public.json                           all
+com.microsoft.VSCode  public.xml                            all
+com.microsoft.VSCode  public.toml                           all
+com.microsoft.VSCode  com.microsoft.ini                     all
+com.microsoft.VSCode  net.daringfireball.markdown           all
+# .conf
+com.microsoft.VSCode  dyn.ah62d4rv4ge80g55sq2               all
+# .env
+com.microsoft.VSCode  dyn.ah62d4rv4ge80n5x0                 all
+# .editorconfig
+com.microsoft.VSCode  dyn.ah62d4rv4ge80n3dmsv11e25tr3xgw32  all
+# .gitignore
+com.microsoft.VSCode  dyn.ah62d4rv4ge80s4pyrfx0655wqy       all
+# .tf
+com.microsoft.VSCode  dyn.ah62d4rv4ge81k3u                  all
+# .tfvars
+com.microsoft.VSCode  dyn.ah62d4rv4ge81k3x0qf3hg            all
+
+# Scripts - open them for editing rather than running them on double-click
+com.microsoft.VSCode  public.shell-script                   all
+com.microsoft.VSCode  public.bash-script                    all
+com.microsoft.VSCode  public.zsh-script                     all
+com.microsoft.VSCode  public.python-script                  all
+# .ps1
+com.microsoft.VSCode  dyn.ah62d4rv4ge81a63v                 all
+
+# Source code
+com.microsoft.VSCode  com.netscape.javascript-source        all
+# .jsx
+com.microsoft.VSCode  dyn.ah62d4rv4ge80y652                 all
+# .tsx
+com.microsoft.VSCode  com.microsoft.typescript              all
+com.microsoft.VSCode  com.microsoft.c-sharp                 all
+com.microsoft.VSCode  com.sun.java-source                   all
+# .kt
+com.microsoft.VSCode  dyn.ah62d4rv4ge8007a                  all
+# .go
+com.microsoft.VSCode  dyn.ah62d4rv4ge80s52                  all
+# .rs
+com.microsoft.VSCode  dyn.ah62d4rv4ge81e62                  all
+com.microsoft.VSCode  org.iso.sql                           all
